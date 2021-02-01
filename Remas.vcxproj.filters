@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Main">
+      <UniqueIdentifier>{44ee26fa-2f6d-4856-9d5c-5b7b4b204faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Password System">
+      <UniqueIdentifier>{85144b13-dbe8-48ff-a727-408641aff36b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main App">
+      <UniqueIdentifier>{c3129c6b-35a6-46ca-b707-c00444c926cb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Password System.h">
+      <Filter>Password System</Filter>
+    </ClInclude>
+    <ClInclude Include="Mian App.h">
+      <Filter>Main App</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
