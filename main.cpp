@@ -6,8 +6,9 @@
 */
 
 
-//Including the file that has all other info needed for this app to function.
+//Including the files that have all other info needed for this app to function.
 #include "Mian App.h"
+#include "Reset.h"
 
 
 /*
@@ -26,6 +27,10 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR args, int nCmdShow)
 	if (check_value == false)
 	{
 		MainApp(hinst);
+	}
+	if (reset_value == true)
+	{
+		Reset(hinst);
 	}
 	return 0;
 }
