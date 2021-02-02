@@ -44,3 +44,4 @@ LRESULT CALLBACK mainProc(HWND hwnd2, UINT mas2, WPARAM wp2, LPARAM lp2)
 	}
 	return 0;
 }
+
