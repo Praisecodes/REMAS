@@ -7,14 +7,15 @@
 #include <Windows.h>
 #include <stdlib.h>
 
+
 LRESULT CALLBACK PasswordProc(HWND, UINT, WPARAM, LPARAM);
 
 bool check_value = true;
-HWND passwordWindow,resetMain;
+bool reset_value = false;
+HWND passwordWindow;
 
 void Body(HWND);
-void Reset(HINSTANCE);
-void ResetWindow(HWND);
+
 void DestroyWindows(HWND window1, HWND window2)
 {
 	DestroyWindow(window1);
@@ -34,8 +35,6 @@ void PasswordSystem(HINSTANCE instance)
 	RegisterClass(&wc);
 
 	passwordWindow = CreateWindowEx(0, L"name", L"Password", WS_MINIMIZEBOX | WS_SYSMENU |  WS_VISIBLE, 500, 300, 400, 240, NULL, NULL, instance, NULL);
-
-	Reset(instance);
 
 	MSG msg = {};
 
@@ -90,7 +89,7 @@ LRESULT CALLBACK PasswordProc(HWND hwnd, UINT mas, WPARAM wp, LPARAM lp)
 
 			if (strcmp(PasswordValue, PasswordItself) ==  0)
 			{
-				DestroyWindows(passwordWindow, resetMain);
+				DestroyWindows(passwordWindow,NULL);
 				check_value = false;
 			}
 
@@ -101,7 +100,8 @@ LRESULT CALLBACK PasswordProc(HWND hwnd, UINT mas, WPARAM wp, LPARAM lp)
 			break;
 		case OnClick_Reset:
 		{
-			ResetWindow(hwnd);
+			reset_value = true;
+			EnableWindow(passwordWindow, false);
 		}
 			break;
 		}
@@ -148,60 +148,4 @@ void Body(HWND hwnd)
 	HWND Continue = CreateWindowEx(0, L"BUTTON", L"CONTINUE", WS_CHILD | WS_VISIBLE | BS_FLAT, 267, 150, 113, 50, hwnd, (HMENU)OnClick_Continue,
 		NULL, NULL);
 	SendMessage(Continue, WM_SETFONT, (WPARAM)editFont, MAKELPARAM(TRUE, 0));
-}
-
-
-/*
-* This part handles the reset button.
-* 
-* Whenever the reset button is pushed, everything in there begins to function from here.
-* All the designs of the reset window and it's functions as well as linking it with the main password system will be done from here.
-*/
-
-//Reset window procedure
-LRESULT CALLBACK ResetProc(HWND, UINT, WPARAM, LPARAM);
-
-//Main Entry and Registration of Reset window.
-void Reset(HINSTANCE ResetInstance)
-{
-	WNDCLASS reset = {};
-
-	reset.hbrBackground = CreateSolidBrush(RGB(0, 0, 39));
-	reset.hCursor = LoadCursor(NULL, IDC_ARROW);
-	reset.hInstance = ResetInstance;
-	reset.lpfnWndProc = ResetProc;
-	reset.lpszClassName = L"ResetName";
-
-	RegisterClass(&reset);
-
-	MSG resetmsg = {};
-
-	while (GetMessage(&resetmsg, NULL, 0, 0))
-	{
-		TranslateMessage(&resetmsg);
-		DispatchMessage(&resetmsg);
-	}
-}
-
-void ResetWindow(HWND resethwnd)
-{
-	resetMain = CreateWindowEx(0, L"ResetName", L"Reset Password", WS_MINIMIZEBOX | WS_VISIBLE | WS_SYSMENU, 400, 200, 400, 500,
-		resethwnd, NULL, NULL, NULL);
-	EnableWindow(passwordWindow, false);
-}
-
-LRESULT CALLBACK ResetProc(HWND resethandle, UINT resetmassage, WPARAM resetWp, LPARAM resetLp)
-{
-	switch (resetmassage)
-	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		EnableWindow(passwordWindow, true);
-		break;
-	default:
-		return DefWindowProc(resethandle, resetmassage, resetWp, resetLp);
-		break;
-	}
-
-	return 0;
 }
