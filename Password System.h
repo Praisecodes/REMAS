@@ -100,8 +100,12 @@ LRESULT CALLBACK PasswordProc(HWND hwnd, UINT mas, WPARAM wp, LPARAM lp)
 			break;
 		case OnClick_Reset:
 		{
-			reset_value = true;
-			EnableWindow(passwordWindow, false);
+			if (MessageBox(NULL, L"Dear user, please be informed that by clicking on the reset button the password window will be closed and the reset window will be opened.\n\nAlso note that after you have changed your password the window will be closed automatically, that proves your password was changed successfully.\n\nYou can click on Cancel to cancel this and use the existing password.\nIf you click OK there's no going back.",
+				L"Info", MB_OKCANCEL | MB_ICONINFORMATION) == IDOK)
+			{
+				reset_value = true;
+				DestroyWindow(passwordWindow);
+			}
 		}
 			break;
 		}
@@ -126,7 +130,7 @@ void Body(HWND hwnd)
 	SendMessage(Sign, WM_SETFONT, (WPARAM)Signfont, MAKELPARAM(TRUE, 0));
 
 	//Border around password sector
-	CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER, 5, 70, 375, 50, hwnd, NULL, NULL, NULL);
+	CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | SS_SUNKEN, 5, 70, 375, 50, hwnd, NULL, NULL, NULL);
 
 	//Sign to show this is where you enter password
 	HWND pword = CreateWindowEx(0, L"STATIC", L"Password:", WS_CHILD | WS_VISIBLE, 15, 80, 110, 30, hwnd, NULL, NULL, NULL);
@@ -141,11 +145,11 @@ void Body(HWND hwnd)
 	*/
 
 	//Button for Reset
-	HWND reset = CreateWindowEx(0, L"BUTTON", L"RESET", WS_CHILD | WS_VISIBLE | BS_FLAT, 5, 150, 110, 50, hwnd, (HMENU)OnClick_Reset, NULL, NULL);
+	HWND reset = CreateWindowEx(0, L"BUTTON", L"RESET", WS_CHILD | WS_VISIBLE | BS_FLAT, 0, 152, 110, 50, hwnd, (HMENU)OnClick_Reset, NULL, NULL);
 	SendMessage(reset, WM_SETFONT, (WPARAM)editFont, MAKELPARAM(TRUE, 0));
 
 	//Button for Continue
-	HWND Continue = CreateWindowEx(0, L"BUTTON", L"CONTINUE", WS_CHILD | WS_VISIBLE | BS_FLAT, 267, 150, 113, 50, hwnd, (HMENU)OnClick_Continue,
+	HWND Continue = CreateWindowEx(0, L"BUTTON", L"CONTINUE", WS_CHILD | WS_VISIBLE | BS_FLAT, 271, 152, 113, 50, hwnd, (HMENU)OnClick_Continue,
 		NULL, NULL);
 	SendMessage(Continue, WM_SETFONT, (WPARAM)editFont, MAKELPARAM(TRUE, 0));
 }
