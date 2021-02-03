@@ -26,6 +26,7 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR args, int nCmdShow)
 	}
 	if (check_value == false)
 	{
+		Sleep(3000);
 		MainApp(hinst);
 	}
 	if (reset_value == true)
