@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "Calculator.h"
 
 LRESULT CALLBACK mainProc(HWND, UINT, WPARAM, LPARAM);
@@ -7,6 +8,9 @@ void Buttons(HWND);
 void Statics(HWND);
 HWND RemasApp;
 HWND buttonClear, buttonTotal, buttonPurchase, buttonMenu, hold;
+
+int calculations = 0;
+int Answer = 0;
 
 HFONT buttons = CreateFont(30, 15, 0, 0, FW_EXTRABOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
 	CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH, TEXT("Arial Black"));
@@ -48,6 +52,206 @@ LRESULT CALLBACK mainProc(HWND hwnd2, UINT mas2, WPARAM wp2, LPARAM lp2)
 		break;
 
 	case WM_COMMAND:
+		switch (wp2)
+		{
+		case bone:
+		{
+			char text[100];
+			GetWindowTextA(one, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case btwo:
+		{
+			char text[100];
+			GetWindowTextA(two, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bthree:
+		{
+			char text[100];
+			GetWindowTextA(three, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bfour:
+		{
+			char text[100];
+			GetWindowTextA(four, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bfive:
+		{
+			char text[100];
+			GetWindowTextA(five, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bsix:
+		{
+			char text[100];
+			GetWindowTextA(six, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bseven:
+		{
+			char text[100];
+			GetWindowTextA(seven, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case beight:
+		{
+			char text[100];
+			GetWindowTextA(eight, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bnine:
+		{
+			char text[100];
+			GetWindowTextA(nine, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bzero:
+		{
+			char text[100];
+			GetWindowTextA(zero, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bplus:
+		{
+			char text[100];
+			GetWindowTextA(plus, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bminus:
+		{
+			char text[100];
+			GetWindowTextA(minus, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case btimes:
+		{
+			char text[] = "*";
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bdivide:
+		{
+			char text[100];
+			GetWindowTextA(divide, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bdot:
+		{
+			char text[100];
+			GetWindowTextA(dot, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bBracketO:
+		{
+			char text[100];
+			GetWindowTextA(bracketO, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bBracketC:
+		{
+			char text[100];
+			GetWindowTextA(bracketC, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bmodulo:
+		{
+			char text[100];
+			GetWindowTextA(modulo, text, 100);
+
+			strcat_s(out, text);
+			SetWindowTextA(Screen, out);
+		}
+			break;
+
+		case bclear:
+		{
+			char out2[100];
+			char clean[] = "";
+			char ResultClean[] = "0";
+
+			strcpy_s(out2, ResultClean);
+			strcpy_s(out, clean);
+			SetWindowTextA(Screen, out);
+			SetWindowTextA(ResultScreen, out2);
+		}
+			break;
+
+		case bequal:
+		{
+			
+		}
+			break;
+		}
 		break;
 
 	case WM_DESTROY:
