@@ -27,7 +27,7 @@ void Reset(HINSTANCE ResetInstance)
 
 	RegisterClass(&reset);
 
-	resetMain = CreateWindowEx(0, L"ResetName", L"Reset Password", WS_OVERLAPPED | WS_VISIBLE | WS_SYSMENU, 400, 200, 400, 500,
+	resetMain = CreateWindowEx(WS_EX_CLIENTEDGE, L"ResetName", L"Reset Password", WS_OVERLAPPED | WS_VISIBLE | WS_SYSMENU, 400, 200, 400, 500,
 		NULL, NULL, ResetInstance, NULL);
 
 	MSG resetmsg = {};
@@ -54,6 +54,23 @@ LRESULT CALLBACK ResetProc(HWND resethandle, UINT resetmassage, WPARAM resetWp, 
 {
 	switch (resetmassage)
 	{
+		//To create a nicely colored button for my Reset Window
+	case WM_DRAWITEM:
+	{
+		LPDRAWITEMSTRUCT lpds = (DRAWITEMSTRUCT*)resetLp;
+		SIZE size;
+		GetTextExtentPoint32A(lpds->hDC, "Set Password", strlen("Set Password"), &size);
+		SetTextColor(lpds->hDC, RGB(255, 255, 255));
+		SetBkColor(lpds->hDC, RGB(0, 0, 160));
+		ExtTextOutA(lpds->hDC, (lpds->rcItem.left + 8), (lpds->rcItem.top + 7), ETO_OPAQUE, &lpds->rcItem,
+			"Set Password", strlen("Set Password"), NULL);
+
+		DrawEdge(lpds->hDC, &lpds->rcItem, (lpds->itemState & ODS_SELECTED ? EDGE_RAISED : EDGE_SUNKEN), BF_RECT);
+
+		return TRUE;
+	}
+		break;
+
 	case WM_CTLCOLORSTATIC:
 		SetBkMode((HDC)resetWp, TRANSPARENT);
 		SetTextColor((HDC)resetWp, RGB(255, 255, 255));
@@ -109,6 +126,7 @@ void BodyReset(HWND hwnd)
 	SendMessage(npwordEditCon, WM_SETFONT, (WPARAM)Spaces, MAKELPARAM(TRUE, 0));
 
 	//Button to finalize the password reset
-	HWND setbutton = CreateWindowEx(0, L"BUTTON", L"Set Password", WS_CHILD | WS_VISIBLE, 233, 421, 150, 40, hwnd, NULL, NULL, NULL);
+	HWND setbutton = CreateWindowEx(0, L"BUTTON", L"", WS_CHILD | WS_VISIBLE | BS_OWNERDRAW | BS_FLAT, 233, 421, 150, 40, hwnd, NULL, (HINSTANCE)GetWindowLong(hwnd,GWLP_HINSTANCE),
+		NULL);
 	SendMessage(setbutton, WM_SETFONT, (WPARAM)Spaces, MAKELPARAM(TRUE, 0));
 }
