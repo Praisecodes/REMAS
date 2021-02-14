@@ -23,5 +23,22 @@
     <ClInclude Include="Mian App.h">
       <Filter>Main App</Filter>
     </ClInclude>
+    <ClInclude Include="Reset.h">
+      <Filter>Password System</Filter>
+    </ClInclude>
+    <ClInclude Include="Calculator.h">
+      <Filter>Main App</Filter>
+    </ClInclude>
+    <ClInclude Include="WinBuCom.h">
+      <Filter>Main App</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Main App</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Main App</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

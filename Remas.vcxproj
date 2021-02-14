@@ -22,8 +22,15 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Calculator.h" />
     <ClInclude Include="Mian App.h" />
     <ClInclude Include="Password System.h" />
+    <ClInclude Include="Reset.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="WinBuCom.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
