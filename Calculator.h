@@ -34,7 +34,7 @@ void Calculator(HWND hwnd)
 	CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE, 1010, 100, 300, 500, hwnd, NULL, NULL, NULL);
 
 	//Calculator screen
-	Screen = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE, 1010, 100, 300, 60, hwnd, NULL, NULL, NULL);
+	Screen = CreateWindowEx(0, L"STATIC", L"", WS_CHILD | WS_VISIBLE, 1010, 100, 300, 60, hwnd, NULL, NULL, NULL);
 	SendMessage(Screen, WM_SETFONT, (WPARAM)Spaces, MAKELPARAM(TRUE, 0));
 
 	//Screen for result
