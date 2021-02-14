@@ -24,11 +24,13 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR args, int nCmdShow)
 	{
 		PasswordSystem(hinst);
 	}
-	if (check_value == false)
+
+	while (check_value == false)
 	{
-		Sleep(3000);
+		Sleep(2000);
 		MainApp(hinst);
 	}
+
 	if (reset_value == true)
 	{
 		Reset(hinst);
