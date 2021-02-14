@@ -12,7 +12,7 @@ LRESULT CALLBACK PasswordProc(HWND, UINT, WPARAM, LPARAM);
 
 bool check_value = true;
 bool reset_value = false;
-HWND passwordWindow;
+HWND passwordWindow, Continue, reset;
 
 void Body(HWND);
 
@@ -72,6 +72,35 @@ LRESULT CALLBACK PasswordProc(HWND hwnd, UINT mas, WPARAM wp, LPARAM lp)
 		SetTextColor((HDC)wp, RGB(255, 255, 255));
 
 		return GetClassLongPtr(hwnd, GCL_HBRBACKGROUND);
+		break;
+
+	case WM_DRAWITEM:
+	{
+		LPDRAWITEMSTRUCT lpds = (DRAWITEMSTRUCT*)lp;
+
+		if (lpds->hwndItem == Continue)
+		{
+			SIZE size;
+			GetTextExtentPoint32A(lpds->hDC, "CONTINUE", strlen("CONTINUE"), &size);
+			SetTextColor(lpds->hDC, RGB(255, 255, 255));
+			SetBkColor(lpds->hDC, RGB(0, 0, 160));
+			ExtTextOutA(lpds->hDC, (lpds->rcItem.left + 3), (lpds->rcItem.top + 9), ETO_OPAQUE, &lpds->rcItem,
+				"CONTINUE", strlen("CONTINUE"), NULL);
+		}
+		if (lpds->hwndItem == reset)
+		{
+			SIZE size;
+			GetTextExtentPoint32A(lpds->hDC, "RESET", strlen("RESET"), &size);
+			SetTextColor(lpds->hDC, RGB(255, 255, 255));
+			SetBkColor(lpds->hDC, RGB(0, 0, 160));
+			ExtTextOutA(lpds->hDC, (lpds->rcItem.left + 19), (lpds->rcItem.top + 10), ETO_OPAQUE, &lpds->rcItem,
+				"RESET", strlen("RESET"), NULL);
+		}
+
+		DrawEdge(lpds->hDC, &lpds->rcItem, (lpds->itemState & ODS_SELECTED ? EDGE_BUMP : EDGE_SUNKEN), BF_SOFT);
+
+		return TRUE;
+	}
 		break;
 
 	case WM_COMMAND:
@@ -145,11 +174,12 @@ void Body(HWND hwnd)
 	*/
 
 	//Button for Reset
-	HWND reset = CreateWindowEx(0, L"BUTTON", L"RESET", WS_CHILD | WS_VISIBLE | BS_FLAT, 0, 152, 110, 50, hwnd, (HMENU)OnClick_Reset, NULL, NULL);
+	reset = CreateWindowEx(0, L"BUTTON", L"RESET", WS_CHILD | WS_VISIBLE | BS_FLAT | BS_OWNERDRAW, 0, 152, 110, 50,
+		hwnd, (HMENU)OnClick_Reset, (HINSTANCE)GetWindowLong(hwnd, GWLP_HINSTANCE), NULL);
 	SendMessage(reset, WM_SETFONT, (WPARAM)editFont, MAKELPARAM(TRUE, 0));
 
 	//Button for Continue
-	HWND Continue = CreateWindowEx(0, L"BUTTON", L"CONTINUE", WS_CHILD | WS_VISIBLE | BS_FLAT, 271, 152, 113, 50, hwnd, (HMENU)OnClick_Continue,
-		NULL, NULL);
+	Continue = CreateWindowEx(0, L"BUTTON", L"CONTINUE", WS_CHILD | WS_VISIBLE | BS_FLAT | BS_OWNERDRAW, 269, 152, 115, 50,
+		hwnd, (HMENU)OnClick_Continue, (HINSTANCE)GetWindowLong(hwnd,GWLP_HINSTANCE), NULL);
 	SendMessage(Continue, WM_SETFONT, (WPARAM)editFont, MAKELPARAM(TRUE, 0));
 }
